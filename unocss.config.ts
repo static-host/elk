@@ -1,5 +1,7 @@
-import process from 'node:process'
 import type { Variant } from 'unocss'
+import process from 'node:process'
+import { variantParentMatcher } from '@unocss/preset-mini/utils'
+
 import {
   defineConfig,
   presetAttributify,
@@ -10,8 +12,6 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-
-import { variantParentMatcher } from '@unocss/preset-mini/utils'
 
 export default defineConfig({
   shortcuts: [
@@ -43,7 +43,7 @@ export default defineConfig({
 
       // buttons
       'btn-base': 'cursor-pointer disabled:pointer-events-none disabled:bg-$c-bg-btn-disabled disabled:text-$c-text-btn-disabled',
-      'btn-solid': 'btn-base px-4 py-2 rounded text-$c-text-btn bg-$c-primary hover:bg-$c-primary-active',
+      'btn-solid': 'btn-base px-4 py-2 rounded text-inverted bg-$c-primary hover:bg-$c-primary-active',
       'btn-outline': 'btn-base px-4 py-2 rounded text-$c-primary border border-$c-primary hover:bg-$c-primary hover:text-inverted',
       'btn-text': 'btn-base px-4 py-2 text-$c-primary hover:text-$c-primary-active',
       'btn-action-icon': 'btn-base hover:bg-active rounded-full h9 w9 flex items-center justify-center disabled:bg-transparent disabled:text-$c-text-secondary',
@@ -68,7 +68,7 @@ export default defineConfig({
 
       'timeline-title-style': 'text-primary text-lg font-bold',
     },
-    [/^elk-group-hover[:-](\S+)$/, ([,r]) => `media-mouse-group-hover-${r} group-active-${r}`],
+    [/^elk-group-hover[:-]([a-z0-9/-]+)$/, ([,r]) => `media-mouse-group-hover-${r} group-active-${r}`],
   ],
   presets: [
     presetUno({
